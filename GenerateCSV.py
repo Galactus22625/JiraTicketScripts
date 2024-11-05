@@ -11,7 +11,7 @@ InputFields = ["CSV File Name", "Numbr of Issues"]
 def main():
     csvFields = ["Project Name", "Project Key", "Issue Type", "Status", "Priority", "Issue ID", "Summary", "Comment", "Description", "Project Type"]
     issueTypes = ["Story", "Task", "Bug", "Epic"]
-    statuses = ["Open", "Reopened", "Ready For Launch"]
+    statuses = ["Open", "Reopened", "Ready For Launch", "In Progress", "Resolved"]
     priority = ["high", "medium", "low"]
 
     csvName, projectNames, projectKeys, numIssues = processCommandLineArguments()
