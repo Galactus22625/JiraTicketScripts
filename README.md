@@ -2,7 +2,7 @@
 Generate CSV files with generated Jira Ticket information to import into Jira for volume testing
 
 ## Use
-In Order to generate Projects, run 
+In Order to generate CSV File, run 
 >python3 GenerateCSV.py {[Project Name] [Project Key] [Number of Tickets]}
 
 If you want to import to multiple projects, just repeat{[Project Name] [Project Key] [Number of Tickets]} for each project you want.  If you want to create a new project when you import, put values for project name and project key that are different from the values of your current projects <br />
