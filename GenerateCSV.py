@@ -9,9 +9,10 @@ import string
 InputFields = ["CSV File Name", "Numbr of Issues"]
 
 def main():
-    csvFields = ["Project Name", "Project Key", "Issue Type", "Status", "Issue ID", "Summary", "Comment", "Description", "Project Type"]
+    csvFields = ["Project Name", "Project Key", "Issue Type", "Status", "Priority", "Issue ID", "Summary", "Comment", "Description", "Project Type"]
     issueTypes = ["Story", "Task", "Bug", "Epic"]
     statuses = ["Open", "Reopened", "Ready For Launch"]
+    priority = ["high", "medium", "low"]
 
     csvName, projectNames, projectKeys, numIssues = processCommandLineArguments()
     csvName = csvName + ".csv"
@@ -35,7 +36,7 @@ def main():
             for issueNumber in range(1, issues + 1):
                 description = ''.join(random.choice(letters) for i in range(random.randint(5, 2000)))
                 comment = ''.join(random.choice(letters) for i in range(random.randint(5, 100)))
-                writer.writerow([projectName, projectKey, random.choice(issueTypes), random.choice(statuses), str(issueNumber), "This is a well written summary of issue " + str(issueNumber), comment, description, "software"])
+                writer.writerow([projectName, projectKey, random.choice(issueTypes), random.choice(statuses), random.choice(priority), str(issueNumber), "This is a well written summary of issue " + str(issueNumber), comment, description, "software"])
 
 def validProjectKey(projectKey):
     keyPattern = re.compile("[^A-Z0-9]")
