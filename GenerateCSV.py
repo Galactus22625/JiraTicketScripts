@@ -3,14 +3,15 @@ import sys
 import os
 import re
 import random
+import string
         
         
 InputFields = ["CSV File Name", "Numbr of Issues"]
 
 def main():
-    csvFields = ["Project Name", "Project Key", "Issue Type", "Status", "Issue ID", "Summary", "Project Type"]
+    csvFields = ["Project Name", "Project Key", "Issue Type", "Status", "Issue ID", "Summary", "Comment", "Description", "Project Type"]
     issueTypes = ["Story", "Task", "Bug", "Epic"]
-    statuses = ["To Do", "In Progress", "Ready For Launch"]
+    statuses = ["Open", "Reopened", "Ready For Launch"]
 
     csvName, projectNames, projectKeys, numIssues = processCommandLineArguments()
     csvName = csvName + ".csv"
@@ -29,9 +30,12 @@ def main():
 
         writer.writerow(csvFields)
 
+        letters = string.ascii_lowercase + " "
         for projectName, projectKey, issues in zip(projectNames, projectKeys, numIssues):
             for issueNumber in range(1, issues + 1):
-                writer.writerow([projectName, projectKey, random.choice(issueTypes), random.choice(statuses), str(issueNumber), "This is a well written summary of issue " + str(issueNumber), "software"])
+                description = ''.join(random.choice(letters) for i in range(random.randint(5, 2000)))
+                comment = ''.join(random.choice(letters) for i in range(random.randint(5, 100)))
+                writer.writerow([projectName, projectKey, random.choice(issueTypes), random.choice(statuses), str(issueNumber), "This is a well written summary of issue " + str(issueNumber), comment, description, "software"])
 
 def validProjectKey(projectKey):
     keyPattern = re.compile("[^A-Z0-9]")
