@@ -1,6 +1,7 @@
 # Jira Ticket Scripts.
-Generate CSV files with generated Jira Ticket information to import into Jira for volume testing using GenerateCSV.py <br />
-Automatically update tickets with UpdateTickets.py using Jira api.
+* Automatically update tickets with UpdateTickets.py using Jira api.
+* Generate CSV files with generated Jira Ticket information to import into Jira for volume testing using GenerateCSV.py
+
 
 
 ## Use (UpdateTickets.py)
@@ -9,10 +10,11 @@ To run update tickets, enter the following command.
 
 This will take every ticket in the project and update the description and summary to something new.
 
-To generate an api key for the passwrod field, follow the instructions here [Jira API KEY instuctions.](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/)
+To generate an api key for the password field, follow the instructions here [Jira API KEY instuctions.](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/)
 
 
 ## Use (GenerateCSV.py)
+This program generates a CSV file that can then be used to upload tickets to jira using the jira UI. <br />
 In Order to generate CSV File, run 
 >python3 GenerateCSV.py {[Project Name] [Project Key] [Number of Tickets]}
 
