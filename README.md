@@ -8,7 +8,7 @@
 To run update tickets, enter the following command.  
 >python3 UpdateTickets.py --user [jira-username] --password [jira-api-key] --url [url-of-your-jira-site] --projkey [list of project keys]
 
-This will take every ticket in the project and update the description and summary to something new.
+This will take every ticket in the project and update the description and summary to something new.  Updates about 2 tickets per second.
 
 To generate an api key for the password field, follow the instructions here [Jira API KEY instuctions.](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/)
 
