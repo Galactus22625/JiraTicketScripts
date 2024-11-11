@@ -1,7 +1,8 @@
-# Jira Ticket Generator
-Generate CSV files with generated Jira Ticket information to import into Jira for volume testing
+# Jira Ticket Scripts.
+Generate CSV files with generated Jira Ticket information to import into Jira for volume testing using GenerateCSV.py
+Automatically update tickets with UpdateTickets.py
 
-## Use
+## Use (GenerateCSV.py)
 In Order to generate CSV File, run 
 >python3 GenerateCSV.py {[Project Name] [Project Key] [Number of Tickets]}
 
@@ -14,3 +15,5 @@ To upload generated tickets to Jira, import the generated CSV file.
 You may need to use the old Jira UI to upload to multiple projects properly.  Do not map Issue ID for the old Jira UI.   You may also run into Issues mapping Statuses into projects you already have in Jira if the mapping does not exist.  To avoid you can change the statuses fields to ones that match, or just dont map status.
 
 If you want to upload a business project instead of a software project, change the project type category to business.  You may also need to alter the possible statuses.
+
+## Use (UpdateTickets.py)
