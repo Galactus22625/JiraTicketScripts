@@ -1,20 +1,44 @@
 import requests
 import argparse
+import logging
+import string
+import random
 
 from GenerateCSV import validProjectKey
 
 API_LINK = "/rest/api/2/"
 
+logging.basicConfig(filename='UpdateTickets.log',level=logging.INFO)
+
 def main():
     args = parseArguments()
     auth = (args.user, args.password)
-    print(args.projkey)
     for project in args.projkey:
-        updateProjectIssues(project)
-    editIssue("ED-1", args.url, auth, "this is the new summary", "this is the new description")
+        updateProjectIssues(project, args.url, auth)
 
-def updateProjectIssues(projectKey):
-    pass
+def updateProjectIssues(projectKey, url, auth):
+    apiUrl = url + API_LINK + "search?jql= project in (\"" + projectKey +"\")"
+    response = requests.get(apiUrl, auth = auth)
+    if response.status_code != 200:
+        logging.error(f"Expected a response code of 200.  Received a response code of {response.status_code}")
+        print(f"Unable to access project: {projectKey}, please see logs")
+        return
+
+    data = response.json()
+    issues = data["issues"]
+    letters = string.ascii_lowercase + " "
+    ticketsEdited = 0
+    for issue in issues:
+        key = issue["key"]
+        description = issue["fields"]["description"]
+        summary = issue["fields"]["summary"]
+
+        newDescription = ''.join(random.choice(letters) for i in range(random.randint(5, 2000))) + "\n The Description has been Replaced."
+        newSummary = summary + ". We now have a new summary."
+        ticketsEdited += editIssue(key, url, auth, newSummary, newDescription)
+
+    print(f"Succesfully edited {ticketsEdited} tickets in project {projectKey}")
+    logging.info(f"Succesfully edited {ticketsEdited} tickets in project {projectKey}")
 
 def editIssue(issueKey, url, auth, newSummary, newDescription):
     apiUrl = url + API_LINK + "issue/" + issueKey
@@ -27,9 +51,12 @@ def editIssue(issueKey, url, auth, newSummary, newDescription):
     }
     response = requests.put(apiUrl, json = updateJson, auth = auth)
     if (response.status_code == 200 or response.status_code == 204):
-        print(f"edited issue {issueKey}")
+        logging.debug(f"edited issue {issueKey}")
+        return 1
     else:
-        print(f"Expected a response code of 200 or 204.  Received a response code of {response.status_code}")
+        logging.error(f"Expected a response code of 200 or 204.  Received a response code of {response.status_code}")
+        print("Error editing an issue, see logs")
+        return 0
 
 def parseArguments():
     parser = argparse.ArgumentParser()
