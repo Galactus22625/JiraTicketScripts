@@ -5,7 +5,7 @@ Automatically update tickets with UpdateTickets.py using Jira api.
 
 ## Use (UpdateTickets.py)
 To run update tickets, add the link to your jira projects rest api url ino the ACCOUNT_URL variable in UpdateTickets.py.  Then run with
->python3 UpdateTickets.py --user <jira-username> --password <jira-api-key> --url <url-of-your-jira-site> --projkey [list of project keys]
+>python3 UpdateTickets.py --user [jira-username] --password [jira-api-key] --url [url-of-your-jira-site] --projkey [list of project keys]
 This will take every ticket in the project and update the description and summary to something new.
 
 

@@ -11,6 +11,15 @@ def main():
     editIssue("ED-1", args.url, auth)
     pass
 
+def editIssue(issueKey, url, auth):
+apiUrl = url + API_LINK + "issue/" + issueKey
+
+updateJson = {
+    "fields": {"summary": "What fun"}
+}
+response = requests.put(apiUrl, json = updateJson, auth = auth)
+assert (response.status_code == 200 or response.status_code == 204), f"Expected a response code of 200 or 204.  Received a response code of {response.status_code}"
+
 def parseArguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--url', type = str, help = "url of your jira site", required = True)
@@ -19,14 +28,6 @@ def parseArguments():
     parser.add_argument('--projkey', type = str, nargs='+', help = "project keys that you want updated", required = False)
     args = parser.parse_args()
     return args
-def editIssue(issueKey, url, auth):
-    apiUrl = url + API_LINK + "issue/" + issueKey
-
-    updateJson = {
-        "fields": {"summary": "What fun"}
-    }
-    response = requests.put(apiUrl, json = updateJson, auth = auth)
-    assert (response.status_code == 200 or response.status_code == 204), f"Expected a response code of 200 or 204.  Received a response code of {response.status_code}"
 
 if __name__ == "__main__":
     main()
