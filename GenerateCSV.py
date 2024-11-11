@@ -8,6 +8,9 @@ import string
         
 InputFields = ["CSV File Name", "Numbr of Issues"]
 
+if __name__ == "__main__":
+    main()
+
 def main():
     csvFields = ["Project Name", "Project Key", "Issue Type", "Status", "Priority", "Issue ID", "Summary", "Comment", "Description", "Project Type"]
     issueTypes = ["Story", "Task", "Bug", "Epic"]
@@ -67,7 +70,3 @@ def processCommandLineArguments():
         numIssues.append(sys.argv[3*project + 4])
 
     return csvName, projectNames, projectKeys, numIssues
-
-
-if __name__ == "__main__":
-    main()
