@@ -15,7 +15,11 @@ def main():
     args = parseArguments()
     auth = (args.user, args.password)
     for project in args.projkey:
-        updateProjectIssues(project, args.url, auth)
+        if validProjectKey(project):
+            updateProjectIssues(project, args.url, auth)
+        else:
+            logging.error(f"{project} is not a valid project key.  Projects keys must consist of only Uppercase Letters and Numbers.")
+            print(f"{project} is not a valid project key.  Projects keys must consist of only Uppercase Letters and Numbers.")
 
 
 def updateProjectIssues(projectKey, url, auth):
