@@ -12,6 +12,8 @@ This will take every ticket in the project and update the description and summar
 
 To generate an api key for the password field, follow the instructions here [Jira API KEY instuctions.](https://support.atlassian.com/atlassian-account/docs/manage-api-tokens-for-your-atlassian-account/)
 
+notes: make sure jira url does not end in a /
+
 
 ## Use (GenerateCSV.py)
 This program generates a CSV file that can then be used to upload tickets to jira using the jira UI. <br />
