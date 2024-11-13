@@ -3,6 +3,7 @@ import argparse
 import logging
 import string
 import random
+import time
 
 from GenerateCSV import validProjectKey
 
@@ -69,14 +70,20 @@ def editIssue(issueKey, url, auth, newSummary, newDescription):
             "description": newDescription
             }
     }
-    response = requests.put(apiUrl, json = updateJson, auth = auth)
-    if (response.status_code == 200 or response.status_code == 204):
-        logging.debug(f"edited issue {issueKey}")
-        return 1
-    else:
-        logging.error(f"Expected a response code of 200 or 204.  Received a response code of {response.status_code}")
-        print("Error editing an issue, see logs")
-        return 0
+    attempt = 0
+    sleepvalues = [1, 5, 10, 30, 60, 200]
+    while attempt < len(sleepvalues):
+        response = requests.put(apiUrl, json = updateJson, auth = auth)
+        if (response.status_code == 200 or response.status_code == 204):
+            logging.debug(f"edited issue {issueKey}")
+            return 1
+        elif response.statu_code == 429:
+            x = sleepvalues[attempt]
+            time.sleep(x)
+        else:
+            logging.error(f"Expected a response code of 200 or 204.  Received a response code of {response.status_code}")
+            print("Error editing an issue, see logs")
+            return 0
 
 
 def getPageData(projectKey, url, auth):
