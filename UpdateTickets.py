@@ -79,6 +79,8 @@ def editIssue(issueKey, url, auth, newSummary, newDescription):
             return 1
         elif response.statu_code == 429:
             x = sleepvalues[attempt]
+            logging.error(f"Expected a response code of 200 or 204.  Received a response code of {response.status_code}. Sleeping for {attempt} number of seconds before trying again.")
+            print(f"Expected a response code of 200 or 204.  Received a response code of {response.status_code}. Sleeping for {attempt} number of seconds before trying again.")
             time.sleep(x)
         else:
             logging.error(f"Expected a response code of 200 or 204.  Received a response code of {response.status_code}")
